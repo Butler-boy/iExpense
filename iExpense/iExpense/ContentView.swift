@@ -7,15 +7,28 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct SecondView: View {
+    @Environment(\.dismiss) var dismiss
+    let name: String
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Button("Dismiss") {
+            dismiss()
         }
-        .padding()
+        Text("Hello \(name)")
+    }
+}
+
+struct ContentView: View {
+    @State private var sheetShowing = false
+    
+    var body: some View {
+        Button("Show Sheet") {
+            sheetShowing.toggle()
+        }
+        .sheet(isPresented: $sheetShowing) {
+            SecondView(name: "liny")
+        }
     }
 }
 
